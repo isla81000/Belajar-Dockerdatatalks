@@ -18,6 +18,4 @@ RUN uv sync --locked
 
 COPY pipeline.py .
 #sama seperti di atas yang copy ke folder code
-
-ENTRYPOINT [ "python", "pipeline.py" ]
-#Entry poin hanya menjalankan file/script yang ada di dalam list
+ENTRYPOINT ["python", "pipeline.py"]
