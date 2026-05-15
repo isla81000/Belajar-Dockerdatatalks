@@ -12,3 +12,10 @@ venv/
 
 # OS
 .DS_Store
+
+# Docker Data
+pipeline/ny_taxi_postgres_data/
+
+# Jupyter
+.ipynb_checkpoints/
+
