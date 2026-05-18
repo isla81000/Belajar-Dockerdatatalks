@@ -1,8 +1,12 @@
+from calendar import month
+
 import pandas as pd
 
 from sqlalchemy import create_engine
 
 from tqdm.auto import tqdm
+
+import click
 
 
 dtype = {
@@ -29,23 +33,21 @@ parse_dates = [
     "tpep_dropoff_datetime"
 ]
 
+@click.command()
+@click.option('--pg-user', default='root', help='PostgreSQL user')
+@click.option('--pg-pass', default='root', help='PostgreSQL password')
+@click.option('--pg-host', default='localhost', help='PostgreSQL host')
+@click.option('--pg-port', default=5432, type=int, help='PostgreSQL port')
+@click.option('--pg-db', default='ny_taxi', help='PostgreSQL database name')
+@click.option('--pg-year', default=2021,type=int, help='year of data ingestion')
+@click.option('--pg-month', default=1,type=int, help='month of data ingestion')
+@click.option('--target-table', default='yellow_taxi_data', help='Target table name')
+def run(pg_user, pg_pass, pg_host, pg_port, pg_db, pg_year, pg_month, target_table):
 
-def run():
-    pg_user = 'root'
-    pg_pass = 'root'
-    pg_host = 'localhost'
-    pg_port = 5432
-    pg_db = 'ny_taxi'
-
-    year = 2021
-    month = 1
     
-    target_table = 'yellow_taxi_data'
-
-    chunk_size = 100000
   
     prefix = 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/'
-    url =  f'{prefix}yellow_tripdata_{year}-{month:02d}.csv.gz'
+    url =  f'{prefix}yellow_tripdata_{pg_year}-{pg_month:02d}.csv.gz'
 
     engine = create_engine(f'postgresql+psycopg2://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}')
 
