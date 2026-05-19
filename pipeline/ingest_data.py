@@ -64,7 +64,7 @@ def run(pg_user, pg_pass, pg_host, pg_port, pg_db, pg_year, pg_month, target_tab
     for df_chunk in tqdm(df_iter):
         if first:
             df_chunk.head(0).to_sql(
-                name='target_table',
+                name=target_table,
                 con=engine, 
                 if_exists='replace'
             )
@@ -72,7 +72,7 @@ def run(pg_user, pg_pass, pg_host, pg_port, pg_db, pg_year, pg_month, target_tab
         
         
         df_chunk.to_sql(
-            name='target_table',
+            name=target_table,
             con=engine, 
             if_exists='append'
         )

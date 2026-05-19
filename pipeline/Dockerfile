@@ -16,6 +16,6 @@ COPY pyproject.toml .python-version uv.lock ./
 RUN uv sync --locked
 #menjalankan instalasi depedensi yang ada di pyproject.toml
 
-COPY pipeline.py .
+COPY ingest_data.py .
 #sama seperti di atas yang copy ke folder code
-ENTRYPOINT ["python", "pipeline.py"]
+ENTRYPOINT ["python", "ingest_data.py"]
